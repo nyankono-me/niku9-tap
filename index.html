@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 
-<!-- ダブルタップ拡大を無効化 -->
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!-- ズーム無効化（スマホでタップが安定） -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>🐾ねこタップゲーム🐾</title>
 <style>
@@ -13,23 +13,33 @@
     text-align: center;
     font-family: "Arial";
     overflow: hidden;
+    margin: 0;
+    padding: 0;
   }
+
+  /* 画像をスマホ画面いっぱいにする設定（確実に効く） */
   #cat {
-    width: 760px; /* ←画像を今の倍に拡大（スマホ最大クラス） */
+    width: 100vw;      /* ←画面幅いっぱい */
+    max-width: 100%;   /* ←縮小時の安全策 */
+    height: auto;      /* ←縦横比を維持 */
     transition: transform 0.15s, filter 0.2s;
     border-radius: 20px;
   }
+
   #count {
-    font-size: 26px;
-    margin-top: 20px;
+    font-size: 28px;
+    margin-top: 10px;
     color: #ff7fa8;
   }
+
   .heart {
     position: absolute;
     font-size: 32px;
     color: #ff9ecb;
     animation: float 1.2s ease-out;
+    pointer-events: none;
   }
+
   @keyframes float {
     from { opacity: 1; transform: translateY(0) scale(1); }
     to { opacity: 0; transform: translateY(-60px) scale(1.4); }
@@ -53,15 +63,13 @@ cat.addEventListener("click", () => {
   count++;
   countText.textContent = "タップ数：" + count;
 
-  // ねこが喜ぶ（ぷるっと＋明るくなる）
-  cat.style.transform = "scale(1.15)";
-  cat.style.filter = "brightness(1.2)";
+  cat.style.transform = "scale(1.05)";
+  cat.style.filter = "brightness(1.15)";
   setTimeout(() => {
     cat.style.transform = "scale(1)";
     cat.style.filter = "brightness(1)";
   }, 150);
 
-  // ハート演出
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.textContent = ["❤️","💗","💕","💞"][Math.floor(Math.random()*4)];
