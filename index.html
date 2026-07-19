@@ -1,5 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>🐾ねこタップゲーム🐾</title>
+
+<style>
+  body {
+    background-color: #ffe6f2;
+    text-align: center;
+    font-family: "Arial";
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ← 画像サイズ（今は35vw。ここを変えれば調整できます） */
+  #cat {
+    width: 35vw !important;
+    max-width: 35vw !important;
+    height: auto !important;
+    transition: transform 0.15s, filter 0.2s;
+    border-radius: 20px;
+  }
+
+  #count {
+    font-size: 28px;
+    margin-top: 10px;
+    color: #ff7fa8;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: 32px;
+    color: #ff9ecb;
+    animation: float 1.2s ease-out;
+    pointer-events: none;
+  }
+
+  @keyframes float {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(-60px) scale(1.4); }
+  }
+</style>
+</head>
+<body>
+
+<h2>🐾 ねこタップゲーム 🐾</h2>
+
+<img id="cat" src="cropnekocyan458A5353.jpg">
+
+<div id="count">タップ数：0</div>
+
 <script>
-// ダブルタップズーム完全無効化
+// 📌 ダブルタップズーム完全無効化（スマホで連打が快適になる）
 let lastTouchEnd = 0;
 document.addEventListener('touchend', function (event) {
   const now = Date.now();
@@ -9,28 +64,6 @@ document.addEventListener('touchend', function (event) {
   lastTouchEnd = now;
 }, false);
 
+// 📌 タップ処理
 let count = 0;
-const cat = document.getElementById("cat");
-const countText = document.getElementById("count");
-
-cat.addEventListener("click", () => {
-  count++;
-  countText.textContent = "タップ数：" + count;
-
-  cat.style.transform = "scale(1.05)";
-  cat.style.filter = "brightness(1.15)";
-  setTimeout(() => {
-    cat.style.transform = "scale(1)";
-    cat.style.filter = "brightness(1)";
-  }, 150);
-
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.textContent = ["❤️","💗","💕","💞"][Math.floor(Math.random()*4)];
-  heart.style.left = (Math.random() * window.innerWidth) + "px";
-  heart.style.top = (Math.random() * window.innerHeight) + "px";
-  document.body.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 1200);
-});
-</script>
+const
