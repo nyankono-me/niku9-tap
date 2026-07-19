@@ -7,30 +7,12 @@
 <title>🐾ねこタップゲーム🐾</title>
 <style>
   body {
-    background: radial-gradient(circle, #ffe6f2, #d4b5ff);
+    background-color: #ffe6f2; /* ★元の単色背景に戻す */
     text-align: center;
     font-family: "Arial";
     overflow: hidden;
     margin: 0;
     padding: 0;
-    position: relative;
-  }
-
-  body::after {
-    content: "";
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: url('https://i.imgur.com/8fFGk3Z.png');
-    background-size: cover;
-    opacity: 0.45;
-    animation: twinkle 2s infinite alternate;
-    pointer-events: none;
-  }
-
-  @keyframes twinkle {
-    from { opacity: 0.25; }
-    to { opacity: 0.55; }
   }
 
   #cat {
@@ -124,69 +106,4 @@
 </head>
 <body>
 
-<h2 style="position:relative;z-index:2;">🐾 ねこタップゲーム 🐾</h2>
-
-<img id="cat" src="cropnekocyan458A5353.jpg">
-
-<div id="count">タップ数：0</div>
-
-<div id="nyaa">にゃー！</div>
-<div id="shaa">シャーッ！</div>
-
-<script>
-let count = 0;
-const cat = document.getElementById("cat");
-const countText = document.getElementById("count");
-const nyaa = document.getElementById("nyaa");
-const shaa = document.getElementById("shaa");
-
-cat.addEventListener("click", () => {
-  count++;
-  countText.textContent = "タップ数：" + count;
-
-  cat.style.transform = "scale(1.05)";
-  cat.style.filter = "brightness(1.15)";
-  setTimeout(() => {
-    cat.style.transform = "scale(1)";
-    cat.style.filter = "brightness(1)";
-  }, 150);
-
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.textContent = ["❤️","💗","💕","💞"][Math.floor(Math.random()*4)];
-  heart.style.left = (Math.random() * window.innerWidth) + "px";
-  heart.style.top = (Math.random() * window.innerHeight) + "px";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 1200);
-
-  /* ★ 20回ごとに「にゃー」 */
-  if (count % 20 === 0) {
-    nyaa.style.display = "block";
-
-    for (let i = 0; i < 10; i++) {
-      const mini = document.createElement("div");
-      mini.className = "mini-nyaa";
-      mini.textContent = "にゃー";
-      mini.style.left = (Math.random() * window.innerWidth) + "px";
-      mini.style.top = (Math.random() * window.innerHeight) + "px";
-      document.body.appendChild(mini);
-      setTimeout(() => mini.remove(), 1200);
-    }
-
-    setTimeout(() => {
-      nyaa.style.display = "none";
-    }, 1500);
-  }
-
-  /* ★ 100回ごとに「シャーッ」 */
-  if (count % 100 === 0) {
-    shaa.style.display = "block";
-    setTimeout(() => {
-      shaa.style.display = "none";
-    }, 1500);
-  }
-});
-</script>
-
-</body>
-</html>
+<h2 style="position:relative;z-index:2;">
