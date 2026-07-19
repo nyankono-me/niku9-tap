@@ -138,4 +138,55 @@ let count = 0;
 const cat = document.getElementById("cat");
 const countText = document.getElementById("count");
 const nyaa = document.getElementById("nyaa");
-const shaa = document.getElementById("
+const shaa = document.getElementById("shaa");
+
+cat.addEventListener("click", () => {
+  count++;
+  countText.textContent = "タップ数：" + count;
+
+  cat.style.transform = "scale(1.05)";
+  cat.style.filter = "brightness(1.15)";
+  setTimeout(() => {
+    cat.style.transform = "scale(1)";
+    cat.style.filter = "brightness(1)";
+  }, 150);
+
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = ["❤️","💗","💕","💞"][Math.floor(Math.random()*4)];
+  heart.style.left = (Math.random() * window.innerWidth) + "px";
+  heart.style.top = (Math.random() * window.innerHeight) + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 1200);
+
+  /* ★ 20回ごとに「にゃー」 */
+  if (count % 20 === 0) {
+    nyaa.style.display = "block";
+
+    for (let i = 0; i < 10; i++) {
+      const mini = document.createElement("div");
+      mini.className = "mini-nyaa";
+      mini.textContent = "にゃー";
+      mini.style.left = (Math.random() * window.innerWidth) + "px";
+      mini.style.top = (Math.random() * window.innerHeight) + "px";
+      document.body.appendChild(mini);
+      setTimeout(() => mini.remove(), 1200);
+    }
+
+    setTimeout(() => {
+      nyaa.style.display = "none";
+    }, 1500);
+  }
+
+  /* ★ 100回ごとに「シャーッ」 */
+  if (count % 100 === 0) {
+    shaa.style.display = "block";
+    setTimeout(() => {
+      shaa.style.display = "none";
+    }, 1500);
+  }
+});
+</script>
+
+</body>
+</html>
