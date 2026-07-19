@@ -11,7 +11,7 @@
     overflow: hidden;
   }
   #cat {
-    width: 330px; /* ←ここで大きさ調整（300〜350がオススメ） */
+    width: 380px; /* ←さらに大きくした（スマホ最大クラス） */
     transition: transform 0.15s, filter 0.2s;
     border-radius: 20px;
   }
@@ -36,7 +36,6 @@
 
 <h2>🐾 ねこタップゲーム 🐾</h2>
 
-<!-- あなたがアップロードした画像 -->
 <img id="cat" src="cropnekocyan458A5353.jpg">
 
 <div id="count">タップ数：0</div>
@@ -50,7 +49,6 @@ cat.addEventListener("click", () => {
   count++;
   countText.textContent = "タップ数：" + count;
 
-  // ねこが喜ぶ（ぷるっと＋明るくなる）
   cat.style.transform = "scale(1.15)";
   cat.style.filter = "brightness(1.2)";
   setTimeout(() => {
@@ -58,7 +56,6 @@ cat.addEventListener("click", () => {
     cat.style.filter = "brightness(1)";
   }, 150);
 
-  // ハート演出
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.textContent = ["❤️","💗","💕","💞"][Math.floor(Math.random()*4)];
