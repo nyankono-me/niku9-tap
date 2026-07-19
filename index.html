@@ -15,11 +15,10 @@
     padding: 0;
   }
 
-  /* ← 今の半分のサイズを強制（絶対に効く） */
   #cat {
-    width: 50vw !important;
-    max-width: 50vw !important;
-    height: auto !important;
+    width: 50vw;
+    max-width: 100%;
+    height: auto;
     transition: transform 0.15s, filter 0.2s;
     border-radius: 20px;
   }
@@ -42,6 +41,40 @@
     from { opacity: 1; transform: translateY(0) scale(1); }
     to { opacity: 0; transform: translateY(-60px) scale(1.4); }
   }
+
+  /* ★ にゃーを派手にする演出 */
+  #nyaa {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 200px;        /* ←巨大にゃー */
+    color: #ff4fa8;
+    font-weight: bold;
+    text-shadow: 0 0 20px #ff9ecb, 0 0 40px #ff4fa8; /* ←光る */
+    display: none;
+    animation: pop 0.8s ease-out;
+    pointer-events: none;
+  }
+
+  @keyframes pop {
+    from { transform: translate(-50%, -50%) scale(0.1); opacity: 0; }
+    to { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+  }
+
+  /* 小さなにゃーが散らばる */
+  .mini-nyaa {
+    position: absolute;
+    font-size: 40px;
+    color: #ff7fbf;
+    animation: miniPop 1s ease-out;
+    pointer-events: none;
+  }
+
+  @keyframes miniPop {
+    from { opacity: 0; transform: scale(0.2); }
+    to { opacity: 1; transform: scale(1.2); }
+  }
 </style>
 </head>
 <body>
@@ -52,10 +85,14 @@
 
 <div id="count">タップ数：0</div>
 
+<!-- 派手にゃー -->
+<div id="nyaa">にゃー！</div>
+
 <script>
 let count = 0;
 const cat = document.getElementById("cat");
 const countText = document.getElementById("count");
+const nyaa = document.getElementById("nyaa");
 
 cat.addEventListener("click", () => {
   count++;
@@ -74,8 +111,29 @@ cat.addEventListener("click", () => {
   heart.style.left = (Math.random() * window.innerWidth) + "px";
   heart.style.top = (Math.random() * window.innerHeight) + "px";
   document.body.appendChild(heart);
-
   setTimeout(() => heart.remove(), 1200);
+
+  /* ★ 50回タップで派手にゃー */
+  if (count === 50) {
+    // 大きいにゃー
+    nyaa.style.display = "block";
+
+    // 小さいにゃーを10個散らばらせる
+    for (let i = 0; i < 10; i++) {
+      const mini = document.createElement("div");
+      mini.className = "mini-nyaa";
+      mini.textContent = "にゃー";
+      mini.style.left = (Math.random() * window.innerWidth) + "px";
+      mini.style.top = (Math.random() * window.innerHeight) + "px";
+      document.body.appendChild(mini);
+      setTimeout(() => mini.remove(), 1200);
+    }
+
+    // 大きいにゃーを消す
+    setTimeout(() => {
+      nyaa.style.display = "none";
+    }, 1500);
+  }
 });
 </script>
 
