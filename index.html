@@ -7,31 +7,12 @@
 <title>🐾ねこタップゲーム🐾</title>
 <style>
   body {
-    background: radial-gradient(circle, #ffe6f2, #d4b5ff); /* ふんわり夜空風 */
+    background-color: #ffe6f2;
     text-align: center;
     font-family: "Arial";
     overflow: hidden;
     margin: 0;
     padding: 0;
-    position: relative;
-  }
-
-  /* キラキラ星レイヤー */
-  body::after {
-    content: "";
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: url('https://i.imgur.com/8fFGk3Z.png'); /* 星の画像 */
-    background-size: cover;
-    opacity: 0.45;
-    animation: twinkle 2s infinite alternate;
-    pointer-events: none;
-  }
-
-  @keyframes twinkle {
-    from { opacity: 0.25; }
-    to { opacity: 0.55; }
   }
 
   #cat {
@@ -40,16 +21,12 @@
     height: auto;
     transition: transform 0.15s, filter 0.2s;
     border-radius: 20px;
-    position: relative;
-    z-index: 2; /* 星より前に表示 */
   }
 
   #count {
     font-size: 28px;
     margin-top: 10px;
     color: #ff7fa8;
-    position: relative;
-    z-index: 2;
   }
 
   .heart {
@@ -58,7 +35,6 @@
     color: #ff9ecb;
     animation: float 1.2s ease-out;
     pointer-events: none;
-    z-index: 2;
   }
 
   @keyframes float {
@@ -66,7 +42,7 @@
     to { opacity: 0; transform: translateY(-60px) scale(1.4); }
   }
 
-  /* にゃー（20回ごと） */
+  /* ★ にゃー（20回ごと） */
   #nyaa {
     position: fixed;
     top: 40%;
@@ -79,10 +55,9 @@
     display: none;
     animation: pop 0.8s ease-out;
     pointer-events: none;
-    z-index: 3;
   }
 
-  /* シャーッ（100回ごと） */
+  /* ★ シャーッ（100回ごと） */
   #shaa {
     position: fixed;
     top: 35%;
@@ -95,7 +70,6 @@
     display: none;
     animation: shaaPop 0.8s ease-out;
     pointer-events: none;
-    z-index: 3;
   }
 
   @keyframes pop {
@@ -108,13 +82,13 @@
     to { transform: translate(-50%, -50%) scale(1.4) rotate(5deg); opacity: 1; }
   }
 
+  /* 小さなにゃー散らばり */
   .mini-nyaa {
     position: absolute;
     font-size: 40px;
     color: #ff7fbf;
     animation: miniPop 1s ease-out;
     pointer-events: none;
-    z-index: 3;
   }
 
   @keyframes miniPop {
@@ -125,7 +99,7 @@
 </head>
 <body>
 
-<h2 style="position:relative;z-index:2;">🐾 ねこタップゲーム 🐾</h2>
+<h2>🐾 ねこタップゲーム 🐾</h2>
 
 <img id="cat" src="cropnekocyan458A5353.jpg">
 
@@ -158,4 +132,38 @@ cat.addEventListener("click", () => {
   heart.style.left = (Math.random() * window.innerWidth) + "px";
   heart.style.top = (Math.random() * window.innerHeight) + "px";
   document.body.appendChild(heart);
-  setTimeout
+  setTimeout(() => heart.remove(), 1200);
+
+  /* ★ 20回ごとに「にゃー」 */
+  if (count % 20 === 0) {
+    nyaa.style.display = "block";
+
+    // 小さなにゃーを散らばらせる
+    for (let i = 0; i < 10; i++) {
+      const mini = document.createElement("div");
+      mini.className = "mini-nyaa";
+      mini.textContent = "にゃー";
+      mini.style.left = (Math.random() * window.innerWidth) + "px";
+      mini.style.top = (Math.random() * window.innerHeight) + "px";
+      document.body.appendChild(mini);
+      setTimeout(() => mini.remove(), 1200);
+    }
+
+    setTimeout(() => {
+      nyaa.style.display = "none";
+    }, 1500);
+  }
+
+  /* ★ 100回ごとに「シャーッ」 */
+  if (count % 100 === 0) {
+    shaa.style.display = "block";
+
+    setTimeout(() => {
+      shaa.style.display = "none";
+    }, 1500);
+  }
+});
+</script>
+
+</body>
+</html>
