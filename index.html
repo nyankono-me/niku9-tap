@@ -1,58 +1,14 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>🐾ねこタップゲーム🐾</title>
-<style>
-  body {
-    background-color: #ffe6f2;
-    text-align: center;
-    font-family: "Arial";
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* ← 今の半分のサイズを強制（絶対に効く） */
-  #cat {
-    width: 50vw !important;
-    max-width: 50vw !important;
-    height: auto !important;
-    transition: transform 0.15s, filter 0.2s;
-    border-radius: 20px;
-  }
-
-  #count {
-    font-size: 28px;
-    margin-top: 10px;
-    color: #ff7fa8;
-  }
-
-  .heart {
-    position: absolute;
-    font-size: 32px;
-    color: #ff9ecb;
-    animation: float 1.2s ease-out;
-    pointer-events: none;
-  }
-
-  @keyframes float {
-    from { opacity: 1; transform: translateY(0) scale(1); }
-    to { opacity: 0; transform: translateY(-60px) scale(1.4); }
-  }
-</style>
-</head>
-<body>
-
-<h2>🐾 ねこタップゲーム 🐾</h2>
-
-<img id="cat" src="cropnekocyan458A5353.jpg">
-
-<div id="count">タップ数：0</div>
-
 <script>
+// ダブルタップズーム完全無効化
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (event) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) {
+    event.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
+
 let count = 0;
 const cat = document.getElementById("cat");
 const countText = document.getElementById("count");
@@ -78,6 +34,3 @@ cat.addEventListener("click", () => {
   setTimeout(() => heart.remove(), 1200);
 });
 </script>
-
-</body>
-</html>
